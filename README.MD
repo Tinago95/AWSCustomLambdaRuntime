@@ -13,7 +13,7 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 - A package manager called Cargo (Mentioned it twice because it is that good)
 
 ### Set up toolchain
-#### installing rust 
+####  Install Rust
 ``` https://www.rust-lang.org/tools/install ```
 
 #### Install zigbuild using cargo
