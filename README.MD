@@ -25,7 +25,9 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 
 -  Open the project folder and install dependencies 
 
-``` cargo add lambda_runtime tokio serde_json serde ```
+``` 
+        cargo add lambda_runtime tokio serde_json serde 
+```
 
 -  Replace  src/main.rs with the following code 
 
