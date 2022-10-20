@@ -12,12 +12,12 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 - Tiny footprint
 - A package manager called Cargo (Mentioned it twice because it is that good)
 
-### Let's get Rusty
+## Let's get Rusty
 1.  Install Rust  by following the instructions provided here `https://www.rust-lang.org/tools/install`
 
 2. Install zigbuild by running ``` cargo install cargo-zigbuild ``` in your command line. Zigbuild is a linker CLI tool that simplifies cross compilation of Rust programmes. 
 
-### The fun stuff
+## The fun stuff
 1. Create new Rust Project
 ``` cargo new hello-world ```
 
@@ -63,7 +63,7 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 ##### What's happening in the code 
 
 
-### Let's ~~blow things up~~, build and deploy
+## Let's ~~blow things up~~, build and deploy
 
 1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
 
