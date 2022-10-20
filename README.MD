@@ -10,14 +10,58 @@ Here is a none exhaustive list of the most notable features that come with Rust.
 - Tiny footprint
 - A package manager called Cargo
 
-## Set up Rust
+### Set up toolchain
 #### installing rust 
 ``` https://www.rust-lang.org/tools/install ```
 
 #### install zigbuild
 ``` cargo install cargo-zigbuild ```
 
-### Write Simple Rust Program
+### Create rust project 
+step 1. Create new Rust Project
+``` cargo new hello-world ```
+
+step 2. Open the project folder and install dependencies 
+
+``` cargo add lambda_runtime tokio serde_json serde ```
+
+step 3. replace  src/main.rs with the following code 
+
+``` 
+use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+#[tokio::main]
+async fn main () ->Result<(), Error>{
+    let handler = service_fn(handler);
+   run(handler).await?;
+    Ok(())
+}
+
+#[derive(Deserialize)]
+struct Event {
+    first_name: String,
+    last_name: String
+
+}
+
+#[derive(Serialize)]
+struct Output {
+    message: String,
+    request_id:String
+}
+
+async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
+let message:String = format!("Gidday {} {}", event.payload.first_name, event.payload.last_name);
+Ok(Output { message, request_id: event.context.request_id })
+}
+
+```
+
+
+
+
 
 
 ### Build binary executable using zigbuild
