@@ -63,13 +63,15 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 ##### What's happening in the code 
 
 
-4. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
+### Let's ~~blow things up~~, build and deploy
 
-5. Build an `arm64` executable binary file using Zigbuild by running `cargo zigbuild --target aarch64-unknown-linux-gnu --release' from the root of the Rust project
+1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
 
-6. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/hello-friend bootstrap`
+2. Build an `arm64` executable binary file using Zigbuild by running `cargo zigbuild --target aarch64-unknown-linux-gnu --release' from the root of the Rust project
 
-7. zip the file by running the following command from the root of the project `zip lambda.zip b
+3. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/hello-friend bootstrap`
+
+4. zip the file by running the following command from the root of the project `zip lambda.zip b
 ootstrap`
 
 #### Create Lambda function 
