@@ -69,7 +69,7 @@ use serde::{Deserialize, Serialize};
 ~~~
 
 
-The next Block of code starts with the  ~~~ rust #[tokio::main] ~~~ macro
+The next Block of code starts with the  `#[tokio::main]` macro
 ~~~ rust
 #[tokio::main]
 async fn main () ->Result<(), Error>{
