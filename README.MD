@@ -20,19 +20,18 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 ``` cargo install cargo-zigbuild ```
 
 ### Create Rust project  using the cargo
-- Create new Rust Project
+1. Create new Rust Project
 ``` cargo new hello-world ```
 
--  Open the project folder and install dependencies 
+2.  Open the project folder and install dependencies 
 
 ``` 
         cargo add lambda_runtime tokio serde_json serde 
 ```
 
--  Replace  src/main.rs with the following code 
+3. Replace  src/main.rs with the following code 
 
-
-```rust 
+~~~ rust
 use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -61,8 +60,8 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
     let message:String = format!("Hi {} {} , welcome to rust in the cloud!", event.payload.first_name, event.payload.last_name);
     Ok(Output { message, request_id: event.context.request_id })
 }
+~~~
 
-```
 
 
 ### Build binary executable using zigbuild
