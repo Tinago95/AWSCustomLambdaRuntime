@@ -69,15 +69,42 @@ use serde::{Deserialize, Serialize};
 ~~~
 
 
-The next Block of code starts with the  `#[tokio::main]` macro
+The next Block of code starts with the  `#[tokio::main]` macro. This macro is responsible for transforming the `async fn main ()` ,execution entry point, function into a synchronous function that initialises a runtime instance and then subsequently executes the async main function. 
 ~~~ rust
+
 #[tokio::main]
 async fn main () ->Result<(), Error>{
-    let handler = service_fn(handler);
-   run(handler).await?;
+    let handler = service_fn(handler); // This lets you build a Service from an async function that returns a Result.
+   run(handler).await?; //Starts the Lambda Rust runtime and begins polling for events on the Lambda Runtime APIs
     Ok(())
 }
 ~~~
+
+~~~rust
+#[derive(Deserialize)]   // Allows the struct to be Deserialised 
+struct Event {
+    first_name: String,
+    last_name: String
+
+}
+
+#[derive(Serialize)] // Allows the struct to be Serialised 
+struct Output {
+    message: String,
+    request_id:String
+}
+~~~
+
+The block of code provided below is the handler function that  processes events. It is passed to the `service_fn()` function so it can be converted to a service that can then be passed to the `run()` function which has the responsibility of starting the Lambda Rust runtime
+~~~ rust 
+async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
+    let message:String = format!("Hi {} {} , welcome to rust in the cloud!", event.payload.first_name, event.payload.last_name);
+    Ok(Output { message, request_id: event.context.request_id })
+}
+~~~
+
+
+
 ## Let's ~~blow things up~~, build and deploy
 
 1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
