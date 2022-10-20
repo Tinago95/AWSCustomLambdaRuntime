@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main () ->Result<(), Error>{
-    let handler = service_fn(handler);
-   run(handler).await?;
+    let handler = service_fn(handler);  // This lets you build a Service from an async function that returns a Result.
+   run(handler).await?; //Starts the Lambda Rust runtime and begins polling for events on the Lambda Runtime APIs
     Ok(())
 }
 

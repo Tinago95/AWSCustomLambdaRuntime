@@ -103,8 +103,6 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 }
 ~~~
 
-
-
 ## Let's ~~blow things up~~, build and deploy
 
 1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
@@ -123,18 +121,6 @@ ootstrap`
 3. In the architecture section, select `arm64`
 4. Create
 5. Select upload from .zip and select the lambda.zip file we created earlier on our local machine. 
-
-
-### Deploy Lambda with CDK
-
-### Test
-
-
-
-
-
-
-
 
 ## cross compiling
 - cross  https://github.com/cross-rs/cross#installation (easy)
