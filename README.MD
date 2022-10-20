@@ -29,7 +29,7 @@ As a programming language Rust has all the hallmarks of a mature programming lan
         cargo add lambda_runtime tokio serde_json serde 
 ```
 
-3. Replace  src/main.rs with the following code 
+3. Replace the contents of `src/main.rs` with the following code 
 
 ~~~ rust
 use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
