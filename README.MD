@@ -27,7 +27,7 @@ step 2. Open the project folder and install dependencies
 
 step 3. replace  src/main.rs with the following code 
 
-``` 
+```rust 
 use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -53,8 +53,8 @@ struct Output {
 }
 
 async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
-let message:String = format!("Gidday {} {}", event.payload.first_name, event.payload.last_name);
-Ok(Output { message, request_id: event.context.request_id })
+    let message:String = format!("Gidday {} {}", event.payload.first_name, event.payload.last_name);
+    Ok(Output { message, request_id: event.context.request_id })
 }
 
 ```
