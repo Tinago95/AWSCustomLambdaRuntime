@@ -23,6 +23,6 @@ struct Output {
 }
 
 async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
-let message:String = format!("Gidday {} {}", event.payload.first_name, event.payload.last_name);
-Ok(Output { message, request_id: event.context.request_id })
+    let message:String = format!("Hi {} {} , welcome to rust in the cloud!", event.payload.first_name, event.payload.last_name);
+    Ok(Output { message, request_id: event.context.request_id })
 }
