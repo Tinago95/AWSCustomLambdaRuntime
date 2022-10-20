@@ -137,16 +137,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hello-friend"
-version = "0.1.0"
-dependencies = [
- "lambda_runtime",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -384,6 +374,16 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "simple-program"
+version = "0.1.0"
+dependencies = [
+ "lambda_runtime",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
