@@ -1,6 +1,5 @@
 use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 
 #[tokio::main]
 async fn main () ->Result<(), Error>{

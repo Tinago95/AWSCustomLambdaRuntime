@@ -32,7 +32,6 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 ~~~ rust
 use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 
 #[tokio::main]
 async fn main () ->Result<(), Error>{
@@ -62,7 +61,22 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 
 ##### What's happening in the code 
 
+~~~ rust
+use lambda_runtime::{Context, Error, service_fn, run, LambdaEvent};
+use serde::{Deserialize, Serialize};
+~~~
+The above block of code imports dependencies into our code. At the very top we have `lambda_runtime`  the library that provides a Lambda runtime for our Rust code.
+Next we have `serde` a framework for serialising/deserialising Rust data structures in an efficient and generic manner. 
 
+
+~~~ rust
+#[tokio::main]
+async fn main () ->Result<(), Error>{
+    let handler = service_fn(handler);
+   run(handler).await?;
+    Ok(())
+}
+~~~
 ## Let's ~~blow things up~~, build and deploy
 
 1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
