@@ -12,14 +12,12 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 - Tiny footprint
 - A package manager called Cargo (Mentioned it twice because it is that good)
 
-### Set up toolchain
-####  Install Rust
-``` https://www.rust-lang.org/tools/install ```
+### Let's get Rusty
+1.  Install Rust  by following the instructions provided here `https://www.rust-lang.org/tools/install`
 
-#### Install zigbuild using cargo
-``` cargo install cargo-zigbuild ```
+2. Install zigbuild by running ``` cargo install cargo-zigbuild ``` in your command line. Zigbuild is a linker CLI tool that simplifies cross compilation of Rust programmes. 
 
-### Create Rust project  using the cargo
+### The fun stuff
 1. Create new Rust Project
 ``` cargo new hello-world ```
 
@@ -62,16 +60,18 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 }
 ~~~
 
+##### What's happening in the code 
+
+
 4. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
 
 5. Build an `arm64` executable binary file using Zigbuild by running `cargo zigbuild --target aarch64-unknown-linux-gnu --release' from the root of the Rust project
-Zigbuild is a linker CLI tool that simplifies cross compilation of Rust programmes. 
 
 6. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/hello-friend bootstrap`
 
 7. zip the file by running the following command from the root of the project `zip lambda.zip b
 ootstrap`
- 
+
 #### Create Lambda function 
 ##### In AWS 
 1. Provide function name
