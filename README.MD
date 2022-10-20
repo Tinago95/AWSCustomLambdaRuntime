@@ -122,10 +122,5 @@ ootstrap`
 4. Create
 5. Select upload from .zip and select the lambda.zip file we created earlier on our local machine. 
 
-## cross compiling
-- cross  https://github.com/cross-rs/cross#installation (easy)
-- https://artofserverless.com/rust-lambdas-macos/ (hard)
-
-
 ### References
 [1]  Sustainability with Rust, https://aws.amazon.com/blogs/opensource/sustainability-with-rust/#:~:text=We%20use%20Rust%20to%20deliver,%2C%20Amazon%20CloudFront%2C%20and%20more.
