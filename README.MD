@@ -123,7 +123,7 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 3. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/<project_name> bootstrap`
 
 ### Deploy to AWS using SAM
-1. Create a `template.yaml` file and and place it on the same level is the Rust project directory. 
+1. Create a `template.yaml` file and and place it on the same level as the Rust project directory. 
 
 2. Add the the following to the `template.yaml` file you created in step 1
 ~~~ yaml
