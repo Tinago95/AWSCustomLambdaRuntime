@@ -9,7 +9,6 @@
   * [Conclusion](#conclusion)
   * [References](#references)
 ## Why Rust
-
 Whether Rust is the C++ killer we've all been waiting for remains to be seen. With companies like Tesla and Microsoft still heavily reliant on C++ it would appear there is a strong case for C++'s continued existence. Nonetheless, Rust's growing popularity among developers is definitely something to take notice of. [[1]](#references) In 2019 AWS officially became a sponsor of the Rust project before partnering with Microsoft, Google, Mozilla and Huawei in 2020 to create the Rust Foundation, an organistion whose sole purpose is to support Rust and fuel its adoption as a general purpose language. 
 
 The rapid uptake of Rust by the three largest cloud tech companies has seen the Rust community grow considerably since Rust was first released in 2010. In saying so, it is becoming increasingly obvious that Rust skills will incrementally be in high demand well into the future. 
@@ -149,7 +148,7 @@ Outputs:
     Description: This is a simple Lambda Function Written in Rust
 ~~~
 
-3. From the same level as the `template.yaml` file, run the command sam deploy --guided
+3. From the same level as the `template.yaml` file, run the command `sam deploy --guided`
 4. Once The deployment succeeds, take note of the created Lambda Function's name in the outputs
 
 ### Test Lambda Function 
