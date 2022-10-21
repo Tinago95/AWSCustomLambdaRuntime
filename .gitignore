@@ -1,2 +1,5 @@
 */target
 *.zip
+*output.json
+*samconfig*
+*bootstrap*

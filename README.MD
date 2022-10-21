@@ -1,6 +1,16 @@
+- [Why Rust](#why-rust)
+- [Let's get Rusty](#let-s-get-rusty)
+- [The fun stuff](#the-fun-stuff)
+      - [What's happening in the code](#what-s-happening-in-the-code)
+- [Let's ~~blow things up~~, build and deploy](#let-s---blow-things-up----build-and-deploy)
+  * [Compile Rust Project to an executable binary file](#compile-rust-project-to-an-executable-binary-file)
+  * [Deploy to AWS using SAM](#deploy-to-aws-using-sam)
+  * [Test Lambda Function](#test-lambda-function)
+  * [Conclusion](#conclusion)
+  * [References](#references)
 ## Why Rust
 
-Whether Rust is the C++ killer we've all been waiting for remains to be seen. With companies like Tesla and Microsoft still heavily reliant on C++ it would appear there is a strong case for C++'s continued existence. Nonetheless, Rust's growing popularity among developers is definitely something to take notice of. [1] In 2019 AWS officially became a sponsor of the Rust project before partnering with Microsoft, Google, Mozilla and Huawei in 2020 to create the Rust Foundation, an organistion whose sole purpose is to support Rust and fuel its adoption as a general purpose language. 
+Whether Rust is the C++ killer we've all been waiting for remains to be seen. With companies like Tesla and Microsoft still heavily reliant on C++ it would appear there is a strong case for C++'s continued existence. Nonetheless, Rust's growing popularity among developers is definitely something to take notice of. [[1]](#references) In 2019 AWS officially became a sponsor of the Rust project before partnering with Microsoft, Google, Mozilla and Huawei in 2020 to create the Rust Foundation, an organistion whose sole purpose is to support Rust and fuel its adoption as a general purpose language. 
 
 The rapid uptake of Rust by the three largest cloud tech companies has seen the Rust community grow considerably since Rust was first released in 2010. In saying so, it is becoming increasingly obvious that Rust skills will incrementally be in high demand well into the future. 
 
@@ -19,7 +29,7 @@ As a programming language Rust has all the hallmarks of a mature programming lan
 
 ## The fun stuff
 1. Create new Rust Project
-``` cargo new hello-world ```
+``` cargo new <rust_project_name> ```
 
 2.  Open the project folder and install dependencies 
 
@@ -105,22 +115,67 @@ async fn handler (event: LambdaEvent<Event>) -> Result<Output, Error> {
 
 ## Let's ~~blow things up~~, build and deploy
 
+### Compile Rust Project to an executable binary file
+
 1. Install the arm64 Rust target via rustup by running `rustup target add aarch64-unknown-linux-gnu`. Doing this will allows us to target the `arm64` architecture when we build our binary executable. 
 
 2. Build an `arm64` executable binary file using Zigbuild by running `cargo zigbuild --target aarch64-unknown-linux-gnu --release' from the root of the Rust project
 
-3. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/hello-friend bootstrap`
+3. Copy the generated executable binary file to the root and rename it to bootstrap by running the following command from the root of the project `cp target/aarch64-unknown-linux-gnu/release/<project_name> bootstrap`
 
-4. zip the file by running the following command from the root of the project `zip lambda.zip b
-ootstrap`
+### Deploy to AWS using SAM
+1. Create a `template.yaml` file and and place it on the same level is the Rust project directory. 
 
-#### Create Lambda function 
-##### In AWS 
-1. Provide function name
-2. Under the Custom Runtime section of the Runtime selection drop-down menu, select `Provide your own bootsrap on Amazon Linux 2`
-3. In the architecture section, select `arm64`
-4. Create
-5. Select upload from .zip and select the lambda.zip file we created earlier on our local machine. 
+2. Add the the following to the `template.yaml` file you created in step 1
+~~~ yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 
+Resources:
+  HelloFriendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: HelloFriendFunction
+      MemorySize: 128
+      Architectures: ["arm64"]
+      Handler: bootstrap
+      Runtime: provided.al2
+      Timeout: 5
+      CodeUri: <rust_project_name>/
+
+Outputs:
+  FunctionName:
+    Value: !Ref HelloFriendFunction
+    Description: This is a simple Lambda Function Written in Rust
+~~~
+
+3. From the same level as the `template.yaml` file, run the command sam deploy --guided
+4. Once The deployment succeeds, take note of the created Lambda Function's name in the outputs
+
+### Test Lambda Function 
+Invoke the newly deployed lambda using aws-cli in your terminal, the output will be placed in a file called `output.json`
+
+~~~
+    aws lambda invoke \
+    --cli-binary-format raw-in-base64-out \
+    --region ap-southeast-2 \
+    --function-name SimpleProgram-HelloFriendFunction-6RzpX00nKe0F \
+    --payload '{"first_name": "Leon", "last_name":"Ticharwa"}' \
+    output.json
+~~~
+
+expected output 
+
+~~~json
+   {
+   "message":"Hi Leon Ticharwa , welcome to rust in the cloud!",
+   "request_id":"47f4f611-f9fa-4bca-a88b-3c89dbf47465"
+   }
+~~~
+
+All done!
+
+### Conclusion 
+Congratulations on deploying your first Rust custom runtime and program to AWS Lambda. If you have any questions related to running Rust in the cloud please feel free to get in touch with the [Mechanical Rock team](https://mechanicalrock.io/services/).  
 ### References
 [1]  Sustainability with Rust, https://aws.amazon.com/blogs/opensource/sustainability-with-rust/#:~:text=We%20use%20Rust%20to%20deliver,%2C%20Amazon%20CloudFront%2C%20and%20more.
